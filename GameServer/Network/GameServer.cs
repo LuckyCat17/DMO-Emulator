@@ -112,7 +112,7 @@ namespace GameServer.Network
             Event.Load("Data\\Event.bin");
             AddExp.Load("Data\\AddExp.bin");
             Achieve.Load("Data\\Achieve.bin");
-            //RegionDB.Load("Data\\MapRegion.bin");
+            RegionDB.Load("Data\\MapRegion.bin");
             World();
             SpawnMonsters();
             Console.Title = "Game Server";

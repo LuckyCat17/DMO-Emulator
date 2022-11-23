@@ -5,6 +5,7 @@ using System.Text;
 using Yggdrasil.Helpers;
 using System.IO;
 using Digital_World;
+using System.Diagnostics;
 
 namespace Yggdrasil.Database
 {
@@ -17,21 +18,25 @@ namespace Yggdrasil.Database
             if (RegionList.Count > 0) return;
             using (Stream s = File.OpenRead(fileName))
             {
+                // Legge i bit dal file
                 using (BitReader read = new BitReader(s))
                 {
+                    //Converte i bit in interi32
                     int count = read.ReadInt();
-
+                    //Per ogni int fa un ciclo
                     for (int i = 0; i < count; i++)
                     {
-                        int Count = read.ReadInt();
-                        for (int h = 0; h < Count; h++)
+                        int dcount = read.ReadInt();
+                        // Per ogni int fa un ciclo dove si prende la posizione dell'intero e le assegna alle variabili 
+                        for (int h = 0; h < dcount; h++)
                         {
                             Region Regi = new Region();
-                            read.Seek(i * 604);
+                            //read.Seek((int)read.InnerStream.BaseStream.Position + 62);
                             Regi.Order = h;
                             Regi.MapId = read.ReadInt();
                             Regi.X = read.ReadInt();
                             Regi.Y = read.ReadInt();
+                            read.Skip(592);
                             RegionList.Add(Regi);
                         }
                     }
